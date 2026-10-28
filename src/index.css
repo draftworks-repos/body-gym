@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-bg font-sans text-white antialiased; overflow-x: hidden; }
+  section[id] { scroll-margin-top: 6rem; }
+  :focus-visible { outline: 2px solid #ff5a1f; outline-offset: 3px; }
+  img { -webkit-user-drag: none; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-[1320px] px-5 md:px-8; }
+  .section-y { @apply py-20 md:py-28; }
+  .h2 { @apply text-3xl font-bold leading-tight md:text-5xl; }
+  .btn { @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-7 text-sm font-semibold transition duration-200 active:scale-[.97]; }
+  .btn-accent { @apply bg-accent text-white hover:bg-accent-hover hover:shadow-[0_0_30px_-6px_rgba(255,90,31,.7)]; }
+  .btn-outline { @apply border border-white/25 text-white hover:border-accent hover:text-accent; }
+  .round-btn { @apply grid h-12 w-12 place-items-center rounded-full border border-white/20 transition hover:border-accent hover:bg-accent disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-white/20 disabled:hover:bg-transparent; }
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* Vertical marquee: list is rendered twice, so -50% loops with no seam */
+@keyframes marquee-y { to { transform: translate3d(0, -50%, 0); } }
+.marquee-track { animation: marquee-y 26s linear infinite; will-change: transform; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+/* Hero intro */
+@keyframes rise { from { opacity: 0; transform: translate3d(0, 28px, 0); } }
+.rise { animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track, .rise { animation: none; }
+  .marquee { overflow-y: auto; }
+}
